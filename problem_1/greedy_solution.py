@@ -12,7 +12,8 @@ def greedy_max_area(matriz, rectangulos: list):
     while(not matriz_esta_vacia(matriz)):
         biggest_rect =rectangulos.pop(0)
         x1,y1,x2,y2 = biggest_rect
-        eliminar_rectangulo(matriz,x1,y1,x2,y2)
-        costo += peso_rectangulo(x1,y1,x2,y2)
+        todos_ceros = eliminar_rectangulo(matriz,x1,y1,x2,y2)
+        if not todos_ceros:
+            costo += peso_rectangulo(x1,y1,x2,y2)
     return costo
 
