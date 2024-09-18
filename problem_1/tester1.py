@@ -2,6 +2,7 @@ import random
 
 from problem_1.backtrack_solution import encontrar_peso_minimo
 from utils.problem1 import imprimir_matriz,crear_matriz,marcar_rectangulo,peso_rectangulo
+from problem_1.greedy_solution import greedy_max_area
 
 
 def generar_array_unico(N, lista_existente):
@@ -56,11 +57,13 @@ cantidad_arrays = random.randint(1,N)
 matriz,rectangulos = main(N, cantidad_arrays)
 print('matriz inicial')
 
-for i,rect in enumerate(rectangulos):
-    print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
-# Encontrar el peso mínimo para vaciar la matriz
-peso_minimo = encontrar_peso_minimo(matriz, rectangulos)
+greedy_max_area(matriz, rectangulos)
+# for i,rect in enumerate(rectangulos):
+#     print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
+# # Encontrar el peso mínimo para vaciar la matriz
+# peso_minimo = encontrar_peso_minimo(matriz, rectangulos)
 
-print(f"El peso mínimo para vaciar la matriz es: {peso_minimo}")
+# print(f"El peso mínimo para vaciar la matriz es: {peso_minimo}")
+
 
 # 
