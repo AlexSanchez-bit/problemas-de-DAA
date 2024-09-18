@@ -1,35 +1,55 @@
 from utils.problem1 import crear_matriz,peso_rectangulo,eliminar_rectangulo,restaurar_rectangulo,matriz_esta_vacia
 
-def backtrack(matriz, rectangulos, idx, peso_acumulado):
-    # Caso base: si la matriz está completamente vacía, devolver el peso acumulado
-    if matriz_esta_vacia(matriz):
-        return peso_acumulado
-
-    # Si hemos procesado todos los rectángulos y no vaciamos la matriz, devolvemos un valor grande (invalido)
-    if idx >= len(rectangulos):
-        return float('inf')
-
-    # Obtener el rectángulo actual
-    x1, y1, x2, y2 = rectangulos[idx]
+def backtrack(matriz, rectangulos, solution=[], solution_cost=0):
+    print('Viendo solución:', solution)
     
-    # Opción 1: No usar este rectángulo (ir al siguiente rectángulo)
-    peso_no_usar = backtrack(matriz, rectangulos, idx + 1, peso_acumulado)
+    # Caso base: si la matriz está completamente vacía, devolver el costo de la solución
+    if matriz_esta_vacia(matriz):
+        return solution_cost
 
-    # Opción 2: Usar este rectángulo (eliminarlo de la matriz)
-    # Primero, calculamos el peso del rectángulo actual
-    peso_actual = peso_rectangulo(x1, y1, x2, y2)
+    # Inicializamos la respuesta como infinito
+    response = float('inf')
+    
+    for i, rect in enumerate(rectangulos):
+        if i not in solution:
+            # Agregamos el índice del rectángulo actual a la solución
+            solution.append(i)
+            
+            # Eliminamos el rectángulo actual de la matriz
+            eliminar_rectangulo(matriz, rect[0], rect[1], rect[2], rect[3])
+            
+            # Llamamos recursivamente con la solución actualizada
+            a = backtrack(matriz, rectangulos, solution, solution_cost + peso_rectangulo(rect[0], rect[1], rect[2], rect[3]))
+            
+            # Restauramos el estado de la matriz
+            restaurar_rectangulo(matriz, rect[0], rect[1], rect[2], rect[3])
+            
+            # Eliminamos el índice del rectángulo actual de la solución
+            solution.pop()
+            
+            # Actualizamos la respuesta con el mínimo entre la solución actual y la respuesta
+            response = min(response, a)
+    
+    return response
 
-    # Luego, eliminamos el rectángulo de la matriz
-    eliminar_rectangulo(matriz, x1, y1, x2, y2)
-    # Realizamos la llamada recursiva para procesar el siguiente rectángulo
-    peso_usar = backtrack(matriz, rectangulos, idx + 1, peso_acumulado + peso_actual)
 
-    # Finalmente, restauramos el rectángulo (backtracking: restaurar el estado original de la matriz)
-    restaurar_rectangulo(matriz, x1, y1, x2, y2)
-
-    # Retornamos el mínimo entre usar y no usar el rectángulo actual
-    return min(peso_no_usar, peso_usar)
 
 def encontrar_peso_minimo(matriz, rectangulos):
     # Inicializar el backtracking con el índice 0 y peso acumulado 0
-    return backtrack(matriz, rectangulos, 0, 0)
+    return backtrack(matriz, rectangulos )
+
+def backtrack_max(list):
+    length = len(list)
+    result = []
+
+    for i in range(length):
+        for j in range(length):
+            for k in range(length):
+                result.append(list[i:j] + [list[k]])
+            k = 0
+        j = 0
+    
+
+    return result
+
+print('max estuvo aqui: ',backtrack_max([1,2,3]))
