@@ -12,8 +12,8 @@ def generar_array_unico(N, lista_existente):
         
         # Generar coordenadas para la esquina inferior derecha (x2, y2)
         # Aseguramos que x2 > x1 (al menos dos filas) y y2 > y1 (al menos dos columnas)
-        x2 = random.randint(x1 + 1, N-1)  # Garantiza al menos 2 filas
-        y2 = random.randint(y1 + 1, N-1)  # Garantiza al menos 2 columnas
+        x2 = random.randint(x1 , N-1)  # Garantiza al menos 2 filas
+        y2 = random.randint(y1 , N-1)  # Garantiza al menos 2 columnas
         
         array = (x1, y1, x2, y2)
         
@@ -47,7 +47,7 @@ def main(N, cantidad_arrays):
     i=1
     for (x1, y1, x2, y2) in lista_rectangulos:
         marcar_rectangulo(matriz, x1, y1, x2, y2,i)
-        # i+=1
+        i+=1
     
     # Imprimir la matriz resultante
     imprimir_matriz(matriz)
@@ -87,13 +87,10 @@ def matriz_esta_vacia(matriz):
 def backtrack(matriz, rectangulos, idx, peso_acumulado):
     # Caso base: si la matriz está completamente vacía, devolver el peso acumulado
     if matriz_esta_vacia(matriz):
-        imprimir_matriz(matriz)
-        print('submatriz de peso ',peso_acumulado)
         return peso_acumulado
 
     # Si hemos procesado todos los rectángulos y no vaciamos la matriz, devolvemos un valor grande (invalido)
     if idx >= len(rectangulos):
-        print('indice: ',idx,'  ',peso_acumulado)
         return float('inf')
 
     # Obtener el rectángulo actual
@@ -101,7 +98,6 @@ def backtrack(matriz, rectangulos, idx, peso_acumulado):
     
     # Opción 1: No usar este rectángulo (ir al siguiente rectángulo)
     peso_no_usar = backtrack(matriz, rectangulos, idx + 1, peso_acumulado)
-    print('peso no usar',idx,'  ',peso_no_usar)
 
     # Opción 2: Usar este rectángulo (eliminarlo de la matriz)
     # Primero, calculamos el peso del rectángulo actual
@@ -109,9 +105,6 @@ def backtrack(matriz, rectangulos, idx, peso_acumulado):
 
     # Luego, eliminamos el rectángulo de la matriz
     eliminar_rectangulo(matriz, x1, y1, x2, y2)
-    print('peso usar eliminandi ',idx,'  ',peso_actual)
-    imprimir_matriz(matriz)
-    print('matriz resultante')
     # Realizamos la llamada recursiva para procesar el siguiente rectángulo
     peso_usar = backtrack(matriz, rectangulos, idx + 1, peso_acumulado + peso_actual)
 
@@ -131,8 +124,12 @@ cantidad_arrays = random.randint(1,N)
 
 matriz,rectangulos = main(N, cantidad_arrays)
 print('matriz inicial')
+
+for i,rect in enumerate(rectangulos):
+    print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
 # Encontrar el peso mínimo para vaciar la matriz
 peso_minimo = encontrar_peso_minimo(matriz, rectangulos)
 
 print(f"El peso mínimo para vaciar la matriz es: {peso_minimo}")
 
+# 
