@@ -57,13 +57,13 @@ cantidad_arrays = random.randint(1,N)
 matriz,rectangulos = main(N, cantidad_arrays)
 print('matriz inicial')
 
-greedy_max_area(matriz, rectangulos)
+peso_minimo = encontrar_peso_minimo(matriz.copy(), rectangulos.copy())
+print('minimo greedy: ',greedy_max_area(matriz, rectangulos))
+print(f"minimo backtrack: {peso_minimo}")
 # for i,rect in enumerate(rectangulos):
 #     print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
 # # Encontrar el peso mínimo para vaciar la matriz
-# peso_minimo = encontrar_peso_minimo(matriz, rectangulos)
 
-# print(f"El peso mínimo para vaciar la matriz es: {peso_minimo}")
 
 
 # 
