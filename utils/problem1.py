@@ -26,7 +26,7 @@ def restaurar_rectangulo(matriz, x1, y1, x2, y2):
 def matriz_esta_vacia(matriz):
     # Verifica si la matriz está completamente vacía (llena de ceros)
     for fila in matriz:
-        if any(fila):  # Si hay algún 1 en la fila, la matriz no está vacía
+        if any([elem != 0 for elem in fila]):  # Si hay algún 1 en la fila, la matriz no está vacía
             return False
     return True
 
