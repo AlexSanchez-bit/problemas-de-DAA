@@ -1,11 +1,21 @@
 import math
 from utils.problem1 import marcar_rectangulo,matriz_esta_vacia,eliminar_rectangulo,peso_rectangulo, rectangulo_borrado,rect_a_contenido,imprimir_matriz
 
+def single_black_degree(matrix,rect):
+    x1,y1,x2,y2 = rect
+    deg=0
+    for i in range(x1,x2+1):
+        for j in range(y1,y2+1):
+            deg+= 1 if matrix[i][j]!=0 else 0
+    return deg
+
+
 def greedy_max_area(matriz, rectangulos: list):
-    print(rectangulos)
-    rectangulos.sort(key = lambda rect: ((abs(rect[0] - rect[2]) + 1) * (abs(rect[1] - rect[3]) + 1)),reverse=False)
+    # print(rectangulos)
+    response=[]
+    rectangulos.sort(key = lambda rect: peso_rectangulo(rect[0],rect[1],rect[2],rect[3]),reverse=True)
     
-    print([(rect,((abs(rect[0] - rect[2]) + 1) * (abs(rect[1] - rect[3]) + 1))) for rect in rectangulos])
+    # print([(rect,((abs(rect[0] - rect[2]) + 1) * (abs(rect[1] - rect[3]) + 1))) for rect in rectangulos])
 
 
     costo=0
@@ -18,16 +28,16 @@ def greedy_max_area(matriz, rectangulos: list):
             continue
 
         #si ya hay un rectangulo que lo contiene completamente se ignora
-        if any(rect_a_contenido(biggest_rect, r) for r in rectangulos):
+        if rect_a_contenido(matriz,biggest_rect,rectangulos):
             continue
         
-        rectangulos = list(filter(lambda rect:not rectangulo_borrado(matriz,rect[0],rect[1],rect[2],rect[3]),rectangulos))
         x1,y1,x2,y2 = biggest_rect
         eliminar_rectangulo(matriz,x1,y1,x2,y2)
+        response.append(biggest_rect)
         costo += peso_rectangulo(x1,y1,x2,y2)
     
-    print('matriz final')
-    imprimir_matriz(matriz)
 
+    print(response)
     return costo
+
 

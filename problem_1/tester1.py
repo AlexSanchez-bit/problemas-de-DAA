@@ -52,20 +52,37 @@ def main(N, cantidad_arrays):
 
 # Definir el tamaño de la matriz N y la cantidad de rectángulos a generar
 N = 10
-cantidad_arrays = random.randint(1,N)
+import time
 
-matriz,rectangulos = main(N, cantidad_arrays)
-print('matriz inicial')
+test_count=3
+count=0
+time_passed=time.time()
+algo_mean_time = 0
+for _ in range(0,test_count):
+    cantidad_arrays = random.randint(1,N)
 
-rect_copy=rectangulos.copy()
-peso_minimo = encontrar_peso_minimo(matriz.copy(),rect_copy )
+    matriz,rectangulos = main(N, cantidad_arrays)
+    print('matriz inicial')
 
-rect_copy2= rectangulos.copy()
-print('minimo greedy: ',greedy_max_area(matriz.copy(), rect_copy2))
-print(f"minimo backtrack: {peso_minimo}")
+    rect_copy=rectangulos.copy()
+    peso_minimo = encontrar_peso_minimo(matriz.copy(),rect_copy )
 
-print('backtrack   ',rect_copy)
-print('greedy   ',rect_copy2)
+    rect_copy2= rectangulos.copy()
+    auxtime=time.time()
+    min_greedy=greedy_max_area(matriz.copy(), rect_copy2)
+    algo_mean_time+=time.time() - auxtime
+    print('minimo greedy: ',min_greedy)
+    print(f"minimo backtrack: {peso_minimo}")
+
+    if min_greedy == peso_minimo:
+        count+=1
+time_passed = time.time() - time_passed
+print('porcentaje de casos pasados: ',count/test_count)
+print('tiempo medio de ejecucion (en segundos): ',algo_mean_time/time_passed)
+
+
+# print('backtrack   ',rect_copy)
+# print('greedy   ',rect_copy2)
 
 # for i,rect in enumerate(rectangulos):
 #     print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
