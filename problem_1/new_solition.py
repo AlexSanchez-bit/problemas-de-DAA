@@ -24,9 +24,9 @@ input = read_file()
 
 # create square with pairs
 n, m = input[0]
-square = [(0, 0)]*n
+square = [0]*n
 for i in range(n):
-  square[i] = [(0, 0)]*n
+  square[i] = [0]*n
 
 # sort rectangles by area
 input.pop(0)
@@ -37,19 +37,12 @@ for k in range(m):
   x1, y1, x2, y2 = input[k]
   for i in range(x1, x2 + 1):
     for j in range(y1, y2 + 1):
-      square[i][j] = (square[i][j][1] + 1, k + 1)
+      square[i][j] = square[i][j] + 1
 
 # print square
 for i in range(n):
   for j in range(n):
-    print(square[i][j][0], end=" ")
-  print()
-
-print()
-# print square
-for i in range(n):
-  for j in range(n):
-    print(square[i][j][1], end=" ")
+    print(square[i][j], end=" ")
   print()
 
 
@@ -58,36 +51,30 @@ for k, rect in enumerate(input):
   x1, y1, x2, y2 = rect
   has_one = False
   is_completly_painted = True
-  is_largest_rect = True
   
   for i in range(x1, x2 + 1):
     for j in range(y1, y2 + 1):
-      print(i, j, square[i][j])
-      if square[i][j][0] == 1:
+      if square[i][j] == 1:
         has_one = True
-      if square[i][j][0] != 0:
-        is_complitly_painted = False  
-      if square[i][j][1] > k:
-        is_largest_rect = False
-  
-  need_paint = False
+      if square[i][j] != 0:
+        is_complitly_painted = False
+          
   if has_one: 
     # it's needed to paint this rectangle
-    need_paint = True  
-  
-  elif is_largest_rect:
-    # this rectangle is the largest and needed to paint
-    need_paint = True
+    ans += min(x2 - x1 + 1, y2 - y1 + 1)
+    for i in range(x1, x2 + 1):
+      for j in range(y1, y2 + 1):
+        square[i][j] = 0
     
   elif is_completly_painted:
     # this rectangle is painted previously 
     pass
-
-  if need_paint:
-    ans += min(x2 - x1 + 1, y2 - y1 + 1)
+  else:
+    # reduce the number of rectangles by squares by one
     for i in range(x1, x2 + 1):
       for j in range(y1, y2 + 1):
-        square[i][j] = (0, 0)
+        square[i][j] = square[i][j] - 1 
+     
 
 
 print(ans)
