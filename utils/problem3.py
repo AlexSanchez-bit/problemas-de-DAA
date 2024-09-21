@@ -12,9 +12,10 @@ def generate_random_example(students_number=None,classrooms=1,group_sizes=None):
     students_classrooms=[random.randint(0,classrooms) for _ in range(0,students_number)]
     students_signatures=[]
     for _ in range(0,students_number):
-        if random.randint(0,2)==0:
+        rand = random.randint(0,1)
+        if rand==0:
             students_signatures.append('P')
-        elif random.randint(0,2) ==1:
+        elif rand ==1:
             students_signatures.append('R')
         else:
             students_signatures.append('B')

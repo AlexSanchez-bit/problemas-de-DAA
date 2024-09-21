@@ -1,41 +1,46 @@
-from collections import defaultdict
 
-def count_valid_groups(n, k, m, students_groups, students_exams):
-    # Diccionarios para contar estudiantes por grupo y examen
-    group_count = defaultdict(lambda: defaultdict(int))  # group_count[group][exam]
-    exam_count = defaultdict(int)  # exam_count[exam]
-    
-    # Contamos los estudiantes por grupo y examen
-    for i in range(m):
-        group = students_groups[i]
-        exam = students_exams[i]
-        group_count[group][exam] += 1
-        exam_count[exam] += 1
+def count_sets(students, k):
+    from collections import defaultdict
+    from math import comb
 
-    # Función para calcular combinaciones nCk
-    def comb(n, k):
-        if n < k:
-            return 0
-        if k == 0 or n == k:
-            return 1
-        result = 1
-        for i in range(k):
-            result = result * (n - i) // (i + 1)
-        return result
-    
-    # Contador de grupos válidos
-    total_groups = 0
-    
-    # 1. Contar grupos dentro de cada aula
-    for group in group_count:
-        for exam in group_count[group]:
-            count_in_group_exam = group_count[group][exam]
-            total_groups += comb(count_in_group_exam, k)
-    
-    # 2. Contar grupos por examen independientemente del aula
-    for exam in exam_count:
-        count_in_exam = exam_count[exam]
-        total_groups += comb(count_in_exam, k)
-    
-    return total_groups
+    # Contar estudiantes por grupo y examen
+    group_count = defaultdict(list)
+    exam_count = defaultdict(list)
+    combined_count = defaultdict(list)
 
+    for student_id, (group, exam) in enumerate(students):
+        group_count[group].append(student_id)
+        exam_count[exam].append(student_id)
+        combined_count[(group, exam)].append(student_id)
+
+    total_sets = 0
+
+    comb_aula=0
+    comb_exam=0
+    comb_comb=0
+    # Contar grupos de tamaño k por aula
+    for group, student_ids in group_count.items():
+        count = len(student_ids)
+        if count >= k:
+            tmp = comb(count, k)
+            total_sets += tmp
+            comb_aula+=tmp
+
+    # Contar grupos de tamaño k por examen
+    for exam, student_ids in exam_count.items():
+        count = len(student_ids)
+        if count >= k:
+            tmp = comb(count, k)
+            total_sets += tmp
+            comb_exam+=tmp
+
+    # Contar grupos de tamaño k por aula y examen
+    for (group, exam), student_ids in combined_count.items():
+        count = len(student_ids)
+        if count >= k:
+            tmp = comb(count, k)
+            total_sets -= tmp
+            comb_comb+=tmp
+    
+
+    return total_sets
