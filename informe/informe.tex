@@ -5,6 +5,7 @@
 \usepackage[spanish]{babel}
 \usepackage{multicol}
 \usepackage{subcaption}
+\usepackage{tikz}
 
 \begin{document}
     \sloppypar
@@ -122,7 +123,65 @@ Cada vez que el héroe asesinaba cruelmente (no importa porque somos los buenos)
 	El problema puede ser resumido a encontrar la menor cantidad de pasillos del
 laberinto que debemos eliminar para eliminar los ciclos del laberinto , modelando el laberinto como un conjunto de salas conectadas por pasillos unidireccionales, podr´ıamos tomar las salas como nodos y los pasillos como arcos de un Digrafo c´ıclico (si no hay ciclios no tiene sentido el ejercicio)
 	\subsubsection{Comprobación en tiempo polinomial}
-	
+	Si queremos comprobar una solución <G,k> es decir si eliminando k arcos eliminamos los ciclos. Simplemente eliminamos esos k arcos y comprobamos que no queden ciclos en el grafo resultante. Usando algoritmos como Floyd Warshall O($V^3$), verificando aristas de retroceso con Dfs O(V(G)+E(G)) etc). Por lo que verificar una solución es posible en tiempo polinomial.
+	\subsection{Reduciendo a Vertex Cover}
+Supongamos que tenemos un grafo G,convirtámoslo en un grafo dirigido.
+Siguiendo las siguientes reglas:
+
+\begin{enumerate}
+  \item Por cada vertice $u \in V(G)$ creamos en Gf(grafo dirigido resultante) dos vértices u\_in y u\_out y conectamos u\_in con u\_out
+  \item Por cada arista ${u,v} \in E(G)$ conectamos u\_out con v\_in y v\_out con u\_in en Gf
+\end{enumerate}
+
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}
+        % Primer grafo
+        \node[draw, circle] (A) at (0, 0) {A};
+        \node[draw, circle] (B) at (2, 0) {B};
+        \node[draw, circle] (C) at (1, 2) {C};
+        \draw (A) -- (B);
+        \draw (B) -- (C);
+        \draw (C) -- (A);
+    \end{tikzpicture}
+    \captionof{figure}{Grafo $G$}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}
+        % Segundo grafo (dirigido, con nodos n_in y n_out)
+        \node[draw, circle] (Ain) at (0, 1) {A\_in};
+        \node[draw, circle] (Aout) at (0, -1) {A\_out};
+        
+        \node[draw, circle] (Bin) at (2, 1) {B\_in};
+        \node[draw, circle] (Bout) at (2, -1) {B\_out};
+        
+        \node[draw, circle] (Cin) at (2, 3) {C\_in};
+        \node[draw, circle] (Cout) at (0, 3) {C\_out};
+        
+        % Aristas dirigidas
+        \draw[->] (Aout) -- (Bin);
+        \draw[->] (Bout) -- (Cin);
+        \draw[->] (Cout) -- (Ain);
+        
+        % Conexiones internas de nodos
+        \draw[->] (Ain) -- (Aout);
+         \draw[->] (Aout) -- (Bin);
+           \draw[->] (Bout) -- (Ain);
+        \draw[->] (Bin) -- (Bout);
+           \draw[->] (Cin) -- (Bout);
+     \draw[->] (Bin) -- (Cout);
+        \draw[->] (Cin) -- (Cout);
+           \draw[->] (Cin) -- (Aout);
+              \draw[->] (Ain) -- (Cout);
+    \end{tikzpicture}
+    \captionof{figure}{Grafo resultante $G_f$}
+\end{minipage}
+Esta transformación es posible hacerla en tiempo polinomial siguiendo las dos reglas anteriores por cada nodo , por lo que la transformación se haría en O(V(G))
+
+Por cada vértice en G se construye un ciclo en Gf, asumimos que el grafo no tiene vertices aislados de tener estos sería imposible hacer vertex cover y no tendría sentido la reducción. Por tanto si existiera un algoritmo que resolviera este problema en una complejidad polinomial, se pudiera transformar a vertex Cover en una complejidad polinomial, por tanto se resolvería Vertex Cover en una complejidad polinomial , no puede pasar pq Vertex Cover está demostrado es NP-Hard. Por tanto el problema en cuestión es NP-Completo
+
 	\section{El Profe}
 
 	\subsection{Problema}
