@@ -67,9 +67,9 @@ print(f"minimo backtrack: {peso_minimo}")
 print('backtrack   ',rect_copy)
 print('greedy   ',rect_copy2)
 
-# for i,rect in enumerate(rectangulos):
-#     print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
-# # Encontrar el peso mínimo para vaciar la matriz
+for i,rect in enumerate(rectangulos):
+    print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
+# Encontrar el peso mínimo para vaciar la matriz
 
 
 
