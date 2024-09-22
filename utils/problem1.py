@@ -7,8 +7,8 @@ def crear_matriz(N):
 
 def peso_rectangulo(x1, y1, x2, y2):
     # Calcula el peso del rectángulo (mínimo entre ancho y alto)
-    alto = (x2 - x1) + 1
-    ancho = (y2 - y1) + 1
+    alto = abs(x2 - x1) + 1
+    ancho = abs(y2 - y1) + 1
     return min(alto, ancho)
 
 def eliminar_rectangulo(matriz, x1, y1, x2, y2):

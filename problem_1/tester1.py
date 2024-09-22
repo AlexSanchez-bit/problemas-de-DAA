@@ -3,6 +3,7 @@ import random
 from problem_1.backtrack_solution import encontrar_peso_minimo
 from utils.problem1 import imprimir_matriz,crear_matriz,marcar_rectangulo,peso_rectangulo
 from problem_1.greedy_solution import greedy_max_area
+from problem_1.new_solition import solution
 
 
 def generar_array_unico(N, lista_existente):
@@ -69,9 +70,9 @@ for _ in range(0,test_count):
 
     rect_copy2= rectangulos.copy()
     auxtime=time.time()
-    min_greedy=greedy_max_area(matriz.copy(), rect_copy2)
+    min_greedy=solution(N, rect_copy2)
     algo_mean_time+=time.time() - auxtime
-    print('minimo greedy: ',min_greedy)
+    print('minimo carlos solution: ',min_greedy)
     print(f"minimo backtrack: {peso_minimo}")
 
     if min_greedy == peso_minimo:
