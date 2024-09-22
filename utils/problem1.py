@@ -41,7 +41,7 @@ def rect_a_contenido(matrix, rect1, rectangles):
     for i in range(x1, x2 + 1):
         for j in range(y1, y2 + 1):
             # Verificamos si la posición en la matriz tiene valor 1
-            if matrix[i][j] == 1:
+            if matrix[i][j] != 0:
                 black_tiles+=1
                 # Verificamos si está dentro de los límites de rect2
                 for rect2 in rectangles:
@@ -50,6 +50,7 @@ def rect_a_contenido(matrix, rect1, rectangles):
                         covered_black_tiles+=1
                         break  # Si alguna posición no está contenida, retornamos False
     
+    print(black_tiles,' ',covered_black_tiles)
     return black_tiles == covered_black_tiles  # Si todas las posiciones con 1 están contenidas, retornamos True
 
 
@@ -64,7 +65,6 @@ def matriz_esta_vacia(matriz):
 
 
 def marcar_rectangulo(matriz, x1, y1, x2, y2,num=1):
-    # Marcar el rectángulo con 1s
     for i in range(x1, x2 + 1):
         for j in range(y1, y2 + 1):
             matriz[i][j] = num
