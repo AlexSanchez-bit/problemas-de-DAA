@@ -192,7 +192,7 @@ Para esto definamos algúnos puntos importantes.
 Sabiendo esto se nos ocurrio ordenar los rectángulos por área con un costo de $O(\log m)$ y elegir en cada momento el más grande, siempre que no haya sido borrado.
 
 
-Este método nos acercó a la solución con un costo computacional polinomial, pues solo sería el costo de ordenar los rectángulos($O(\log m)$) más el costo de borrarlos todos ($O(m)$ $\cdot$ $O(k)$ = $O(max (m, k)$), donde k es la cantidad de cuadrados que conforman el rectángulo. Por tanto este algoritmo tendría un tiempo lineal.
+Este método nos acercó a la solución con un costo computacional polinomial, pues solo sería el costo de ordenar los rectángulos($O(\log m)$) más el costo de borrarlos todos ($O(m)$ $\cdot$ $O(k)$ = $O(max (m, k)$), donde k es la cantidad de cuadrados que conforman el rectángulo, que en el caso peor es $O(n^2)$. Por tanto este algoritmo tendría un tiempo de $O(n^2)$
 
 Esta solución tiene un caso que nos falla, el cual abordaremos más adelante.
 	\subsubsection{Problemas con este enfoque}
@@ -261,7 +261,7 @@ Para arreglar este problema se nos ocurrión en vez de borrar el rectángulo de 
 
 \subsection{Greedy}
 Al recorrer los rectángulos de menor a mayor, si este tiene al menos un uno, entonces lo pintamos, sino restamos uno a todas sus casillas del rectángulo. Esto garantiza que si cuando un rectángulo mas grande pase por una casilla que previamente era mayor que uno pero para ese momento ya su valor es uno, indica que él es el ultimo rectángulo que queda que debería pintar dicha casilla, ya que los mas pequeños que él "borraron" su color de esa casilla con la seguridad que un rectángulo más adelante lo pintará por él.
-\subsection{Analisis de correctitud}
+\subsubsection{Analisis de correctitud}
 	Hasta ahora tenemos claro que:
 	\begin{itemize}
 	
