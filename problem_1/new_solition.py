@@ -81,6 +81,6 @@ def read_file():
 
 # ===================================================================
 
-input = read_file()
-x = solution(input[0][0], input[1:])
-print(x)
+# input = read_file()
+# x = solution(input[0][0], input[1:])
+# print(x)
