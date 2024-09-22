@@ -91,6 +91,16 @@ Hasta ahora tenemos claro que:
 
 
 ### 1.3.6 Análisis de complejidad
-TODO: VER COMO DEMUESTRO COMPLEJIDAD
 
+Sea $n$ el tamaño del cuadrado y $m$ la cantidad de rectángulos, donde cada rectángulo tiene como tamaño máximo $n \times n$. El algoritmo consta de 3 partes:
+
+- **Ordenar los rectángulos de menor a mayor por área**: Usando el propio algoritmo de ordenamiento del lengugaje es $O(m \log m)$.
+- **Pintar los rectángulos**: Por cada uno de los rectángulos, sumar uno a todas las casillas del mismo. $O(m n^2)$.
+- **Calcular la solución**: Por cada rectángulo, recorrer sus casillas buscando al menos una casilla con valor de uno, y si es así entonces despintar este rectángulo (restarle uno a cada casilla). En el caso de que ningún rectángulo cubra a otro entonces el costo es $O(m(n^2 + n^2)) = O(mn^2)$
+  
+Con estos tres pasos, la complejidad total es:
+
+$$
+O(m \log m) + O(mn^2) + O(mn^2) = O(m \log m) + O(mn^2) = O(mn^2)
+$$
 
