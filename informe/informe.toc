@@ -1,17 +1,21 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {section}{\numberline {1}Grid}{2}{}%
-\contentsline {subsection}{\numberline {1.1}Problema}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Definición del problema}{2}{}%
 \contentsline {subsubsection}{\numberline {1.1.1}Entrada}{2}{}%
 \contentsline {subsubsection}{\numberline {1.1.2}Salida}{2}{}%
-\contentsline {subsection}{\numberline {1.2}Técnicas de solución empleadas}{2}{}%
-\contentsline {subsection}{\numberline {1.3}Backtrack}{2}{}%
-\contentsline {subsubsection}{\numberline {1.3.1}Optimizaciones}{3}{}%
-\contentsline {subsubsection}{\numberline {1.3.2}Problemas con este enfoque}{3}{}%
-\contentsline {subsection}{\numberline {1.4}Analisis de correctitud}{4}{}%
-\contentsline {section}{\numberline {2}El Laberinto}{5}{}%
-\contentsline {subsection}{\numberline {2.1}Problema}{5}{}%
-\contentsline {subsection}{\numberline {2.2}Primer contacto}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.1}Comprobación en tiempo polinomial}{6}{}%
-\contentsline {subsection}{\numberline {2.3}Reduciendo a Vertex Cover}{6}{}%
-\contentsline {section}{\numberline {3}El Profe}{7}{}%
-\contentsline {subsection}{\numberline {3.1}Problema}{7}{}%
+\contentsline {subsubsection}{\numberline {1.1.3}Técnicas de solución empleadas}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Backtrack}{2}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}Análisis de correctitud}{3}{}%
+\contentsline {subsubsection}{\numberline {1.2.2}Analisis de complejidad}{3}{}%
+\contentsline {subsubsection}{\numberline {1.2.3}Algoritmo}{3}{}%
+\contentsline {subsection}{\numberline {1.3}Primeras ideas}{4}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}Problemas con este enfoque}{5}{}%
+\contentsline {subsection}{\numberline {1.4}Greedy}{7}{}%
+\contentsline {subsection}{\numberline {1.5}Analisis de correctitud}{7}{}%
+\contentsline {section}{\numberline {2}El Laberinto}{8}{}%
+\contentsline {subsection}{\numberline {2.1}Definición del problema}{8}{}%
+\contentsline {subsection}{\numberline {2.2}Primer contacto}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Comprobación en tiempo polinomial}{9}{}%
+\contentsline {subsection}{\numberline {2.3}Reduciendo a Vertex Cover}{9}{}%
+\contentsline {section}{\numberline {3}El Profe}{10}{}%
+\contentsline {subsection}{\numberline {3.1}Definición del problema}{10}{}%

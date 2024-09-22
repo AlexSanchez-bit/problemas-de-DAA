@@ -6,6 +6,21 @@
 \usepackage{multicol}
 \usepackage{subcaption}
 \usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    language=Python,             
+    basicstyle=\ttfamily\small,  
+    keywordstyle=\color{blue},   
+    stringstyle=\color{red},     
+    commentstyle=\color{gray},  
+    numbers=left,               
+    numberstyle=\tiny\color{gray}, 
+    stepnumber=1,               
+    frame=single,            
+    breaklines=true              
+}
 
 \begin{document}
     \sloppypar
@@ -30,17 +45,17 @@
 	\tableofcontents
 	\newpage
 	\section{Grid}
-	\subsection{Problema}
+	\subsection{Definición del problema}
 	Un día iba Alex por su facultad cuando ve un cuadrado formado por $n \times n$  
-cuadraditos de color blanco. A su lado, un mensaje ponía lo siguiente: "Las  
+cuadraditos de color blanco. A su lado, un mensaje ponía lo siguiente: ``Las  
 siguientes tuplas de la forma $(x_1, y_1, x_2, y_2)$ son coordenadas para pintar de  
 negro algunos rectángulos. (coordenadas de la esquina inferior derecha y superior  
-izquierda)" Luego se veían $k$ tuplas de cuatro enteros. Finalmente decía:  
-"Luego de tener el cuadrado coloreado de negro en las secciones pertinentes, su  
+izquierda)'' Luego se veían $k$ tuplas de cuatro enteros. Finalmente decía:  
+``Luego de tener el cuadrado coloreado de negro en las secciones pertinentes, su  
 tarea es invertir el cuadrado a su estado original. En una operación puede seleccionar  
 un rectángulo y pintar todas sus casillas de blanco. El costo de pintar  
 de blanco un rectángulo de $h \times w$ es el mínimo entre $h$ y $w$. Encuentre el costo  
-mínimo para pintar de blanco todo el cuadrado."
+mínimo para pintar de blanco todo el cuadrado.''
 
 En unos 10 minutos Alex fue capaz de resolver el problema. Desgraciadamente  
 esto no es una película y el problema de Alex no era un problema  
@@ -48,49 +63,204 @@ del milenio que lo volviera millonario. Pero, ¿sería usted capaz de resolverlo
 también?
 	
 	\subsubsection{Entrada}
-	La primera línea consiste en dos números $n$ y $m$, el tamaño del cuadrado y la cantidad de rectángulos respectivamente. A continuación seguirán $m$ lineas, cada una con 4 números $x1$, $y1$, $x2$, $y2$, $0 \leq x1,x2,y1,y2 \leq n-1$ indicando las coordenada superior izquierda e inferior derecha del rectaguno en el cuadrado respectivamente.
+	La entrada del problema sería un entero n y m tuplas, tal que n sería la longitud de los lados del cuadrado; y las tuplas serían de la forma ($x_1, y_1, x_2, y_2$), con $0 \leq x1, x2, y1, y2 \leq n-1$, donde ($x_1, y_1$) sería las coordenadas de la esquina inferior derecha, y ($x_2, y_2$) las de las esquina superior izquierda.
 	\subsubsection{Salida}
 	Un número entero indicando el costo mínimo de revertir el color de todos los rectángulos a blanco.
-	\subsection{Técnicas de solución empleadas}
+	\subsubsection{Técnicas de solución empleadas}
 	\begin{itemize}
 	\item Backtrack
 	\item Greedy
 	\end{itemize}
 	
 	\subsection{Backtrack}
-	Del problema tenemos un cuadrado en donde fueron pintados algunos rectángulos los cuales pueden solaparse entre ellos tanto parcial como completamente. Nuestra primera solución para atacar el problema fue crear la solución de fuerza bruta creando un backtrack para poder probar nuestras posteriores soluciones.
-	\subsubsection{Optimizaciones}
-	Podemos observar que si un rectangulo es cubierto por otros rectágunos, este no es necesario pintarlo ya que pintando a los que lo cubren se pintaría este también, evitándonos así un costo innecesario.
+	Del problema tenemos un cuadrado en donde fueron pintados algunos rectángulos los cuales pueden solaparse entre ellos tanto parcial como completamente. Nuestra primera solución para atacar el problema fue crear la solución de fuerza bruta para poder probar nuestras posteriores soluciones. 
+	
+	Para esto implementamos un backtrack clásico, en donde iteramos por todas las tuplas de los rectángulos, y calculamos el costo de borrarlo o no borrarlo. En cada iteración guarda la mejor solución hasta el momento. El caso de parada sería cuando no haya más cuadrados negros, en ese caso se regresa por la rama del backtrack, hasta que se hayan probado todas las combinaciones de rectángulos.
+	\subsubsection{Análisis de correctitud}
+	Claramente este algoritmo da la solución correcta pues prueba todas las combinaciones posibles de borrar los rectángulos y se queda con la mejor, lo que en un tiempo no polinomial.
+	\subsubsection{Analisis de complejidad}
+	La complejidad de este algoritmo sería exponencial respecto a la cantidad de rectángulos, siendo de m!.
+	\subsubsection{Algoritmo}
+	\begin{lstlisting}
+optimal_solution=[]
+min_cost = float('inf')
+def backtrack(matriz, rectangulos, solution=[], solution_cost=0):
+    global optimal_solution
+    global min_cost
+    # Caso base: si la matriz esta completamente vacia,
+    # devolver el costo de la solucion
+    if matriz_esta_vacia(matriz):
+        if solution_cost < min_cost:
+            optimal_solution= solution.copy()
+            min_cost = solution_cost
+        return solution_cost
+
+    # Inicializamos la respuesta como infinito
+    response = float('inf')
+    
+    for i, rect in enumerate(rectangulos):
+        if i not in solution:
+            # Agregamos el indice del rectangulo actual
+            # a la solucion
+            solution.append(i)
+            
+            # Eliminamos el rectangulo actual de la matriz
+            eliminar_rectangulo(matriz, rect[0], rect[1], rect[2], rect[3])
+            
+            # Llamamos recursivamente con la solucion 
+            # actualizada
+            a = backtrack(matriz, rectangulos, solution, 
+            	solution_cost + peso_rectangulo(rect[0], 
+            	rect[1], rect[2], rect[3]))
+            
+            # Restauramos el estado de la matriz
+            restaurar_rectangulo(matriz, rect[0], rect[1], 
+            	rect[2], rect[3])
+            
+            # Eliminamos el indice del rectangulo actual 
+            # de la solucion
+            solution.pop()
+            
+            # Actualizamos la respuesta con el minimo entre 
+            # la solucion actual y la respuesta
+            response = min(response, a)
+    
+    return response
+	\end{lstlisting}
+	
+	\subsection{Primeras ideas}
+	Podemos observar que si un rectángulo es cubierto por otros rectágunos, este no es necesario pintarlo ya que pintando a los que lo cubren se pintaría este también, evitándonos así un costo innecesario.
 
 Aquí tendríamos otro problema y es en que orden se pintan los cuadrados para asegurarnos de que siempre se pintan solo los necesarios?
 
 Para esto definamos algúnos puntos importantes. 
 \begin{itemize}
 
-\item Si un rectángulo $A$ esta completamente contenido dentro de otro $B$, no es necesario pintar $A$ y sólo pintaríamos $B$. Esto es así porque aunque pintemos $A$, igual necesitaríamos pintar $B$, sin embargo si pintamos solo $B$ este cubriría $A$, por lo que solo tendríamos el costo de pintar uno solo.
+\item Si un rectángulo $A$ esta completamente contenido dentro de otro $B$, no es necesario pintar $A$ y sólo pintaríamos $B$. Esto es así porque aunque pintemos $A$, igual necesitaríamos pintar $B$, sin embargo si pintamos solo $B$ este cubriría $A$, por lo que solo tendríamos el costo de pintar uno solo.\\
+\vspace{0.2cm}
+\begin{center}
+
+\begin{tikzpicture}
+  % Dibuja la cuadrícula
+  \draw[step=1cm, gray, very thin] (0, 0) grid (7, 7);
+
+  % Etiquetas de los ejes
+  \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (\x, -0.3) {\x};
+  \foreach \y in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (-0.3, \y) {\y};
+
+  % Pinta algunas secciones de negro (ejemplo de tupla (1, 1, 3, 4))
+  \fill[black!50] (1, 1) rectangle (6, 6);
+  \fill[black!50] (1, 3) rectangle (3, 6);
+  \node at (3.5, 3.5) {B};
+  \node[text=red] at (2, 4.5) {A};
+  \draw[thick, black] (1, 1) rectangle (6, 6);
+  \draw[thick, red] (1, 3) rectangle (3, 6);
+\end{tikzpicture}
+
+\end{center}
 \item Si un rectángulo $A$ tiene al menos una casilla la cual no es cubierta por ningún otro rectangulo, entonces hay que pintar $A$ obligatioriamente. Esto es obvio ya que pintando los demas rectángulos solo pintaríamos una parte de $A$ quedando algunas casillas en negro todavía que solo serán pintadas de blanco si y solo si pintamos $A$ directamente.
+\\
+\vspace{0.2cm}
+
+\begin{center}
+
+\begin{tikzpicture}
+  % Dibuja la cuadrícula
+  \draw[step=1cm, gray, very thin] (0, 0) grid (7, 7);
+
+  % Etiquetas de los ejes
+  \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (\x, -0.3) {\x};
+  \foreach \y in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (-0.3, \y) {\y};
+
+  % Pinta algunas secciones de negro (ejemplo de tupla (1, 1, 3, 4))
+  \fill[black!50] (1, 4) rectangle (4, 5);
+  \fill[black!50] (1, 3) rectangle (3, 6);
+  \node[text=red] at (2.5, 4.5) {A};
+  \node at (2, 4.5) {B};
+  
+  \draw[thick, black] (1, 3) rectangle (3, 6);
+  \draw[thick, red] (1, 4) rectangle (4, 5);
+\end{tikzpicture}
+
+\end{center}
 \end{itemize}
 
-Sabiendo esto entonces podemos ordenar los rectángulos por área con un costo de $O(\log n)$ y comprobando si hay alguno de los dos casos anteriores se cumplen.
+Sabiendo esto se nos ocurrio ordenar los rectángulos por área con un costo de $O(\log m)$ y elegir en cada momento el más grande, siempre que no haya sido borrado.
 
-\begin{itemize}
 
-\item Si hay una casilla que solo es cubierta por el propio rectángulo entonces se pinta
-\item Si el rectangulo está cubierto completamente por otros rectángulos más grandes entonces omitimos pintar este rectangulo y simplemente esperamos a pintar los rectángulos más grandes que los cubren.
-
-\end{itemize}
-Este método nos acerca más a la solución pero el costo computacional sigue siendo elevado, ya que estaríamos comprobando por cada rectangulo si algúnos otros lo cubren completa o parcialmente. Esto para un rectángulo tiene un costo computacional de $O(n^3)$, recorriendo cada rectángulo $O(n-1) = O(n)$ y por cada uno recorrer todas las casillas de ese rectángulo buscando coincidencias $O(n^2)$, dándonos un costo computacionar por cada rectángulo de $O(n^3)$. Esto, para cada rectángulo del cuadrado es $O(n^4)$
+Este método nos acercó a la solución con un costo computacional polinomial, pues solo sería el costo de ordenar los rectángulos($O(\log m)$) más el costo de borrarlos todos ($O(m)$ $\cdot$ $O(k)$ = $O(max (m, k)$), donde k es la cantidad de cuadrados que conforman el rectángulo. Por tanto este algoritmo tendría un tiempo lineal.
 
 Esta solución tiene un caso que nos falla, el cual abordaremos más adelante.
 	\subsubsection{Problemas con este enfoque}
 	
 	El enfoque planteado hasta ahora, aunque no define una solución completa, si especifica como podemos enfrentar los posibles casos al plantear la solución final. Pero este tiene un problema.
 
-Pensemos que siguiendo este enfoque empezando del rectángulo más pequeño al más grande, si encontrarmos un rectángulo $i$ que es cubierto por un rectángulo mayor $i + k$, estaríamos delegando la tarea de pintar el rectágulo $i$ al rectángulo $i + k$, pero, cómo sabemos que el rectángulo $i + k$ es el más grande posible que cubre al rectángulo más pequeño? Como nosotros solo almacenamos la cantidad de rectángulos que cubren una casilla, entonces pasa lo siguiente:
+Pensemos que siguiendo este enfoque empezando del rectángulo más pequeño al más grande, si encontrarmos un rectángulo A de tamaño $i \times j$, y rectángulo mayor B de tamaño $i \times j + 1$, desplazado una posición en alguno de los ejes, por tanto B cubre a A, completamente, exepto una línea. Pero a su vez está linea es cubierta por un rectángulo C de tamaño $i + 1 \times 1$.  \\
 
-Si el rectángulo tiene todas sus casillas mayores a uno entonces se lo delegamos a los rectángulos que vienen más a delante. Pero cuando llegemos a un rectangulo con las mismas casillas, o sea que cubre parcialmente el rectangulo anterior, como este posiblemente pueda tener todas sus casillas mayores a uno se estaría delegando la tarea de pintar a otro rectángulo, y así sucesivamente hasta el final, en donde si todos los rectángulo tenían numeros mayores que uno nunca se habría sumado esos costos.
+\begin{center}
 
-Para enfrentar esto podemos hacer lo siguente: Al recorrer los rectángulos de menor a mayor, si este tiene al menos un uno, entonces lo pintamos, sino restamos uno a todas sus casillas del rectángulo. Esto garantiza que si cuando un rectángulo mas grande pase por una casilla que previamente era mayor que uno pero para ese momento ya su valor es uno, indica que él es el ultimo rectángulo que queda que debería pintar dicha casilla, ya que los mas pequeños que él "borraron" su color de esa casilla con la seguridad que un rectángulo más adelante lo pintará por él.
+\begin{tikzpicture}
+  % Dibuja la cuadrícula
+  \draw[step=1cm, gray, very thin] (0, 0) grid (7, 7);
+
+  % Etiquetas de los ejes
+  \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (\x, -0.3) {\x};
+  \foreach \y in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (-0.3, \y) {\y};
+
+  % Pinta algunas secciones de negro (ejemplo de tupla (1, 1, 3, 4))
+  \fill[black!50] (3, 1) rectangle (5, 4);
+  \fill[black!50] (3, 3) rectangle (5, 5);
+  \fill[black!50] (2, 4) rectangle (5, 5);
+  
+  \draw[thick, black] (3, 1) rectangle (5, 4);
+  \draw[thick, red] (3, 3) rectangle (5, 5);
+  \draw[thick, blue] (2, 4) rectangle (5, 5); 
+  
+  \node at (4, 2.5) {B};
+  \node[text=red] at (4, 4) {A};
+  \node[text=blue] at (3.5, 4.5) {C};
+\end{tikzpicture}
+
+\end{center}
+
+Observámos que si borramos el cuadrado más grande osea B, nos quedaría solo C por borrar, sin embargo A no se ha borrado completamente, por tanto el algoritmo borraría primero A y luego C, lo cual es incorrecto.\\
+
+\begin{center}
+
+\begin{tikzpicture}
+  % Dibuja la cuadrícula
+  \draw[step=1cm, gray, very thin] (0, 0) grid (7, 7);
+
+  % Etiquetas de los ejes
+  \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (\x, -0.3) {\x};
+  \foreach \y in {0, 1, 2, 3, 4, 5, 6, 7}
+    \node at (-0.3, \y) {\y};
+
+  \fill[black!50] (2, 4) rectangle (5, 5);
+  
+  \draw[thick, black] (3, 1) rectangle (5, 4);
+  \draw[thick, red] (3, 3) rectangle (5, 5);
+  \draw[thick, blue] (2, 4) rectangle (5, 5); 
+  
+  \node at (4, 2.5) {B};
+  \node[text=red] at (4, 4) {A};
+  \node[text=blue] at (3.5, 4.5) {C};
+\end{tikzpicture}
+
+\end{center}
+
+
+Para arreglar este problema se nos ocurrión en vez de borrar el rectángulo de mayor área, borrar el que mas área pinte en cada momento. Esto aumentaría la complejidad el algoritmo pues cada vez que se borre un rectángulo habría que recalcular cuanto están pintando en cada momento los rectángulos restantes.
+
+\subsection{Greedy}
+Al recorrer los rectángulos de menor a mayor, si este tiene al menos un uno, entonces lo pintamos, sino restamos uno a todas sus casillas del rectángulo. Esto garantiza que si cuando un rectángulo mas grande pase por una casilla que previamente era mayor que uno pero para ese momento ya su valor es uno, indica que él es el ultimo rectángulo que queda que debería pintar dicha casilla, ya que los mas pequeños que él "borraron" su color de esa casilla con la seguridad que un rectángulo más adelante lo pintará por él.
 \subsection{Analisis de correctitud}
 	Hasta ahora tenemos claro que:
 	\begin{itemize}
@@ -113,7 +283,7 @@ Para enfrentar esto podemos hacer lo siguente: Al recorrer los rectángulos de m
 
  Con lo anterior y siguendo la estrategia de descontar uno cada vez que encontramos un rectángulo que es cubierto por uno o varios mas grandes aseguramos como bien dijimos anteriormente, que en cada paso que restamos uno a cada casilla es como si estubiéramos "eliminando" ese rectángulo sin ningún costo, ya que uno o varios mas grandes que él lo cubrirán.
 \section{El Laberinto}
-	\subsection{Problema}
+	\subsection{Definición del problema}
 	En tiempos antiguos, esos cuando los edificios se derrumbaban por mal tiempo y la conexión mágica era muy lenta, los héroes del reino se aventuraban en el legendario laberinto, un intrincado entramado de pasillos, cada uno custodiado por una bestia mágica. Los pasillos sólo podían caminarse en un sentido pues un viento muy fuerte no te dejaba regresar. Se decía que las criaturas del laberinto, uniendo sus fuerzas mágicas (garras y eso), habían creado ciclos dentro de este, atrapando a cualquiera que entrara a ellos en una especie de montaña rusa sin final en la que un monstruo se reía de ti cada vez que le pasabas por al lado, una locura.
 
 El joven héroe Carlos, se enfrentaba a una prueba única: desmantelar los ciclos eternos y liberar los pasillos del laberinto para que su gente pudiera cruzarlo sin caer en los bucles infinitos de burla y depravación.
@@ -178,13 +348,14 @@ Siguiendo las siguientes reglas:
     \end{tikzpicture}
     \captionof{figure}{Grafo resultante $G_f$}
 \end{minipage}
+\\
 Esta transformación es posible hacerla en tiempo polinomial siguiendo las dos reglas anteriores por cada nodo , por lo que la transformación se haría en O(V(G))
 
 Por cada vértice en G se construye un ciclo en Gf, asumimos que el grafo no tiene vertices aislados de tener estos sería imposible hacer vertex cover y no tendría sentido la reducción. Por tanto si existiera un algoritmo que resolviera este problema en una complejidad polinomial, se pudiera transformar a vertex Cover en una complejidad polinomial, por tanto se resolvería Vertex Cover en una complejidad polinomial , no puede pasar pq Vertex Cover está demostrado es NP-Hard. Por tanto el problema en cuestión es NP-Completo
 
 	\section{El Profe}
 
-	\subsection{Problema}
+	\subsection{Definición del problema}
 	Jorge es profesor de programación. En sus ratos libres, le gusta divertirse con las estadísticas de sus pobres estudiantes reprobados. Los estudiantes están separados en $n$ grupos. Casualmente, este año, todos los estudiantes reprobaron alguno de los dos exámenes finales: $P$ (POO) y $R$ (Recursividad).
 
 Esta tarde, Jorge decide entretenerse separando a los estudiantes suspensos en conjuntos de tamaño $k$ que cumplan lo siguiente: En un mismo conjunto, todos los estudiantes son del mismo grupo $i$ ($1 \leq i \leq n$) o suspendieron por el mismo examen $P$ o $R$.
