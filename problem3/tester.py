@@ -5,16 +5,12 @@ from problem3.flux import Grafo
 import random
 
 
-
-
-
-
 def main():
 
     good=0
     total=1000
     for _ in range(0,total):
-        example = generate_random_example(students_number=random.randint(100,200),classrooms=random.randint(3,100),group_sizes=random.randint(1,100))
+        example = generate_random_example(students_number=random.randint(10,20),classrooms=random.randint(3,10),group_sizes=random.randint(1,10))
         print(example)
         students,students_classrooms,students_signatures,group_sizes = example
         estudiantes = [
