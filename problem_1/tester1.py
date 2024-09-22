@@ -59,7 +59,7 @@ def main(N, cantidad_arrays):
 N = 10
 import time
 
-test_count=1000
+test_count=1
 count=0
 time_passed=time.time()
 algo_mean_time = 0
