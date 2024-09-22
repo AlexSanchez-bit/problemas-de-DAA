@@ -50,8 +50,13 @@ def rect_a_contenido(matrix, rect1, rectangles):
                         covered_black_tiles+=1
                         break  # Si alguna posición no está contenida, retornamos False
     
-    print(black_tiles,' ',covered_black_tiles)
     return black_tiles == covered_black_tiles  # Si todas las posiciones con 1 están contenidas, retornamos True
+
+
+def area_rect(x1,y1,x2,y2):
+    alto = abs(x2 - x1) + 1
+    ancho = abs(y2 - y1) + 1
+    return alto*ancho
 
 
 
