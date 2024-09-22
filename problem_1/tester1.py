@@ -55,7 +55,7 @@ def main(N, cantidad_arrays):
 N = 10
 import time
 
-test_count=3
+test_count=1000
 count=0
 time_passed=time.time()
 algo_mean_time = 0
@@ -66,7 +66,7 @@ for _ in range(0,test_count):
     print('matriz inicial')
 
     rect_copy=rectangulos.copy()
-    peso_minimo = encontrar_peso_minimo(matriz.copy(),rect_copy )
+    peso_minimo = encontrar_peso_minimo(matriz,rect_copy )
 
     rect_copy2= rectangulos.copy()
     auxtime=time.time()
