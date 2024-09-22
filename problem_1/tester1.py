@@ -5,6 +5,8 @@ from utils.problem1 import imprimir_matriz,crear_matriz,marcar_rectangulo,peso_r
 from problem_1.greedy_solution import greedy_max_area
 from problem_1.new_solition import solution
 
+from utils.cute_colors import YELLOW,GREEN,RED,RESET,CYAN
+
 
 def generar_array_unico(N, lista_existente):
     while True:
@@ -42,7 +44,6 @@ def main(N, cantidad_arrays):
         i+=1
     
     # Imprimir la matriz resultante
-    imprimir_matriz(matriz)
     return matriz,lista_rectangulos
 
 
@@ -52,7 +53,7 @@ def main(N, cantidad_arrays):
 
 
 # Definir el tamaño de la matriz N y la cantidad de rectángulos a generar
-N = 10
+N = 5
 import time
 
 test_count=1000
@@ -63,7 +64,8 @@ for _ in range(0,test_count):
     cantidad_arrays = random.randint(1,N)
 
     matriz,rectangulos = main(N, cantidad_arrays)
-    print('matriz inicial')
+    print(YELLOW+'matriz inicial'+RESET)
+    imprimir_matriz(matriz)
 
     rect_copy=rectangulos.copy()
     peso_minimo = encontrar_peso_minimo(matriz,rect_copy )
@@ -72,13 +74,16 @@ for _ in range(0,test_count):
     auxtime=time.time()
     min_greedy=solution(N, rect_copy2)
     algo_mean_time+=time.time() - auxtime
-    print('minimo carlos solution: ',min_greedy)
-    print(f"minimo backtrack: {peso_minimo}")
 
     if min_greedy == peso_minimo:
+        print(GREEN+' passed ',min_greedy)
         count+=1
+    else:
+        print(RED+'minimo carlos solution: ',min_greedy)
+        print(f"minimo backtrack: {peso_minimo}"+RESET)
+        print(CYAN+f"{rectangulos}"+RESET)
 time_passed = time.time() - time_passed
-print('porcentaje de casos pasados: ',count/test_count)
+print(YELLOW+'porcentaje de casos pasados: ',count/test_count)
 print('tiempo medio de ejecucion (en segundos): ',algo_mean_time/time_passed)
 
 
