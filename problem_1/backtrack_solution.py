@@ -8,10 +8,7 @@ def backtrack(matriz, rectangulos, solution=[], solution_cost=0):
     # print('Viendo solución:', solution)
     # Caso base: si la matriz está completamente vacía, devolver el costo de la solución
     if matriz_esta_vacia(matriz):
-        if solution_cost < min_cost:
-            optimal_solution= solution.copy()
-            min_cost = solution_cost
-        return solution_cost
+        return sum(peso_rectangulo(rectangulos[r][0],rectangulos[r][1],rectangulos[r][2],rectangulos[r][3]) for r in solution)
 
     # Inicializamos la respuesta como infinito
     response = float('inf')
@@ -46,7 +43,7 @@ def encontrar_peso_minimo(matriz, rectangulos):
     optimal_solution=[]
     min_cost = float('inf')
     # Inicializar el backtracking con el índice 0 y peso acumulado 0
-    resp = backtrack(matriz, rectangulos )
+    resp = backtrack(matriz, rectangulos,[],0 )
     print('optimal_solution backtrack: ',optimal_solution,' ',min_cost)
     return resp
 

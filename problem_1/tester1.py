@@ -75,21 +75,21 @@ for _ in range(0,test_count):
     rect_copy=rectangulos.copy()
     peso_minimo = encontrar_peso_minimo(matriz,rect_copy )
 
-    rect_copy3= rectangulos.copy()
-    min_greedy=greedy_max_area(matriz3, rect_copy3)
+    # rect_copy3= rectangulos.copy()
+    # min_greedy=greedy_max_area(matriz3, rect_copy3)
 
     auxtime=time.time()
     rect_copy2= rectangulos.copy()
-    min_new_greedy = greedy_max_area_upgrade(matriz2, rect_copy2)
+    min_new_greedy = greedy_max_area_upgrade(matriz2, rect_copy)
     
    
 
     algo_mean_time+=time.time() - auxtime
-    print('minimo greedy: ',min_greedy)
+    # print('minimo greedy: ',min_greedy)
     print(f"minimo backtrack: {peso_minimo}")
     print(f'minimo_new_greedy: {min_new_greedy}' )
 
-    if min_greedy == peso_minimo == min_new_greedy:
+    if peso_minimo == min_new_greedy:
         count+=1
 time_passed = time.time() - time_passed
 print('porcentaje de casos pasados: ',count/test_count)
