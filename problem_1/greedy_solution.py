@@ -11,7 +11,6 @@ def single_black_degree(matrix,rect):
 
 
 def greedy_max_area(matriz, rectangulos: list):
-    # print(rectangulos)
     response=[]
     rectangulos.sort(key = lambda rect: peso_rectangulo(rect[0],rect[1],rect[2],rect[3]),reverse=True)
     
@@ -20,7 +19,6 @@ def greedy_max_area(matriz, rectangulos: list):
 
     costo=0
     while(not matriz_esta_vacia(matriz) ):
-
         biggest_rect =rectangulos.pop(0)
         #si ya fue borrado totalmente por el resto se ignora
         x1,y1,x2,y2 = biggest_rect
