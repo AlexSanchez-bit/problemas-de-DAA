@@ -3,7 +3,9 @@ import random
 from problem_1.backtrack_solution import encontrar_peso_minimo
 from utils.problem1 import imprimir_matriz,crear_matriz,marcar_rectangulo,peso_rectangulo
 from problem_1.greedy_solution import greedy_max_area
-from problem_1.new_greedy import greedy_max_area_upgrade
+from problem_1.new_solition import solution
+
+from utils.cute_colors import YELLOW,GREEN,RED,RESET,CYAN
 
 
 def generar_array_unico(N, lista_existente):
@@ -46,8 +48,7 @@ def main(N, cantidad_arrays):
         i+=1
     
     # Imprimir la matriz resultante
-    imprimir_matriz(matriz)
-    return matriz, matriz2, matriz3,lista_rectangulos
+    return matriz,lista_rectangulos
 
 
 
@@ -56,18 +57,19 @@ def main(N, cantidad_arrays):
 
 
 # Definir el tamaño de la matriz N y la cantidad de rectángulos a generar
-N = 10
+N = 5
 import time
 
-test_count=1
+test_count=1000
 count=0
 time_passed=time.time()
 algo_mean_time = 0
 for _ in range(0,test_count):
     cantidad_arrays = random.randint(1,N)
 
-    matriz, matriz2, matriz3,rectangulos = main(N, cantidad_arrays)
-    print('matriz inicial')
+    matriz,rectangulos = main(N, cantidad_arrays)
+    print(YELLOW+'matriz inicial'+RESET)
+    imprimir_matriz(matriz)
 
     for i,rect in enumerate(rectangulos):
         print(i+1,'---',rect,'----',peso_rectangulo(rect[0],rect[1],rect[2],rect[3]))
@@ -75,24 +77,21 @@ for _ in range(0,test_count):
     rect_copy=rectangulos.copy()
     peso_minimo = encontrar_peso_minimo(matriz,rect_copy )
 
-    rect_copy3= [(rect[0],rect[1],rect[2],rect[3]) for rect in rectangulos]
-    min_greedy=greedy_max_area(matriz3, rect_copy3)
-
     auxtime=time.time()
     rect_copy2= rectangulos.copy()
-    min_new_greedy = greedy_max_area_upgrade(matriz2, rect_copy)
-    
-   
-
+    auxtime=time.time()
+    min_greedy=solution(N, rect_copy2)
     algo_mean_time+=time.time() - auxtime
-    print('minimo greedy: ',min_greedy)
-    print(f"minimo backtrack: {peso_minimo}")
-    print(f'minimo_new_greedy: {min_new_greedy}' )
 
-    if peso_minimo == min_new_greedy == min_greedy:
+    if min_greedy == peso_minimo:
+        print(GREEN+' passed ',min_greedy)
         count+=1
+    else:
+        print(RED+'minimo carlos solution: ',min_greedy)
+        print(f"minimo backtrack: {peso_minimo}"+RESET)
+        print(CYAN+f"{rectangulos}"+RESET)
 time_passed = time.time() - time_passed
-print('porcentaje de casos pasados: ',count/test_count)
+print(YELLOW+'porcentaje de casos pasados: ',count/test_count)
 print('tiempo medio de ejecucion (en segundos): ',algo_mean_time/time_passed)
 
 
