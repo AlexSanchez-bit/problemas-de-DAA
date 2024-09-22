@@ -59,7 +59,7 @@ def main(N, cantidad_arrays):
 N = 10
 import time
 
-test_count=3
+test_count=1000
 count=0
 time_passed=time.time()
 algo_mean_time = 0
@@ -75,8 +75,8 @@ for _ in range(0,test_count):
     rect_copy=rectangulos.copy()
     peso_minimo = encontrar_peso_minimo(matriz,rect_copy )
 
-    # rect_copy3= rectangulos.copy()
-    # min_greedy=greedy_max_area(matriz3, rect_copy3)
+    rect_copy3= [(rect[0],rect[1],rect[2],rect[3]) for rect in rectangulos]
+    min_greedy=greedy_max_area(matriz3, rect_copy3)
 
     auxtime=time.time()
     rect_copy2= rectangulos.copy()
@@ -85,11 +85,11 @@ for _ in range(0,test_count):
    
 
     algo_mean_time+=time.time() - auxtime
-    # print('minimo greedy: ',min_greedy)
+    print('minimo greedy: ',min_greedy)
     print(f"minimo backtrack: {peso_minimo}")
     print(f'minimo_new_greedy: {min_new_greedy}' )
 
-    if peso_minimo == min_new_greedy:
+    if peso_minimo == min_new_greedy == min_greedy:
         count+=1
 time_passed = time.time() - time_passed
 print('porcentaje de casos pasados: ',count/test_count)

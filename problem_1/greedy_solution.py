@@ -35,7 +35,7 @@ def greedy_max_area(matriz, rectangulos: list):
         costo += peso_rectangulo(x1,y1,x2,y2)
     
 
-    print(response)
+    print('max_area_greedy_optimal solution: ',response)
     return costo
 
 
