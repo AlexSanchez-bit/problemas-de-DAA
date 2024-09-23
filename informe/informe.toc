@@ -9,24 +9,24 @@
 \contentsline {subsubsection}{\numberline {1.2.2}Analisis de complejidad}{3}{}%
 \contentsline {subsubsection}{\numberline {1.2.3}Algoritmo}{3}{}%
 \contentsline {subsection}{\numberline {1.3}Primeras ideas}{4}{}%
-\contentsline {subsubsection}{\numberline {1.3.1}Problemas con este enfoque}{5}{}%
-\contentsline {subsection}{\numberline {1.4}Greedy}{7}{}%
-\contentsline {subsubsection}{\numberline {1.4.1}Analisis de correctitud}{7}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}Problemas con este enfoque}{6}{}%
+\contentsline {subsection}{\numberline {1.4}Greedy}{8}{}%
+\contentsline {subsubsection}{\numberline {1.4.1}Analisis de correctitud}{8}{}%
 \contentsline {subsubsection}{\numberline {1.4.2}Análisis de complejidad}{9}{}%
-\contentsline {section}{\numberline {2}El Laberinto}{9}{}%
-\contentsline {subsection}{\numberline {2.1}Definición del problema}{9}{}%
-\contentsline {subsubsection}{\numberline {2.1.1}Primer contacto}{9}{}%
+\contentsline {section}{\numberline {2}El Laberinto}{10}{}%
+\contentsline {subsection}{\numberline {2.1}Definición del problema}{10}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Primer contacto}{10}{}%
 \contentsline {subsubsection}{\numberline {2.1.2}Algoritmos utilizados}{10}{}%
-\contentsline {subsection}{\numberline {2.2}Comprobación en timepo Polinomial}{10}{}%
-\contentsline {subsection}{\numberline {2.3}Reduciendo a Vertex Cover}{10}{}%
-\contentsline {subsection}{\numberline {2.4}GreedyFAS}{11}{}%
-\contentsline {subsubsection}{\numberline {2.4.1}Proceso}{11}{}%
-\contentsline {subsubsection}{\numberline {2.4.2}Resultado}{11}{}%
+\contentsline {subsection}{\numberline {2.2}Comprobación en timepo Polinomial}{11}{}%
+\contentsline {subsection}{\numberline {2.3}Reduciendo a Vertex Cover}{11}{}%
+\contentsline {subsection}{\numberline {2.4}GreedyFAS}{12}{}%
+\contentsline {subsubsection}{\numberline {2.4.1}Proceso}{12}{}%
+\contentsline {subsubsection}{\numberline {2.4.2}Resultado}{12}{}%
 \contentsline {subsection}{\numberline {2.5}SimpleFAS}{12}{}%
-\contentsline {subsubsection}{\numberline {2.5.1}Proceso}{12}{}%
-\contentsline {subsubsection}{\numberline {2.5.2}Complejidad}{12}{}%
-\contentsline {subsection}{\numberline {2.6}KwikSortFAS}{13}{}%
-\contentsline {subsubsection}{\numberline {2.6.1}Proceso}{13}{}%
+\contentsline {subsubsection}{\numberline {2.5.1}Proceso}{13}{}%
+\contentsline {subsubsection}{\numberline {2.5.2}Complejidad}{13}{}%
+\contentsline {subsection}{\numberline {2.6}KwikSortFAS}{14}{}%
+\contentsline {subsubsection}{\numberline {2.6.1}Proceso}{14}{}%
 \contentsline {subsubsection}{\numberline {2.6.2}Complejidad}{14}{}%
-\contentsline {section}{\numberline {3}El Profe}{14}{}%
-\contentsline {subsection}{\numberline {3.1}Definición del problema}{14}{}%
+\contentsline {section}{\numberline {3}El Profe}{15}{}%
+\contentsline {subsection}{\numberline {3.1}Definición del problema}{15}{}%

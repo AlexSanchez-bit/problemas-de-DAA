@@ -87,6 +87,14 @@ min_cost = float('inf')
 def backtrack(matriz, rectangulos, solution=[], solution_cost=0):
     global optimal_solution
     global min_cost
+    
+    # Inicializamos la respuesta como infinito
+    response = float('inf')
+    
+    for rect in solution:
+        x1,y1,x2,y2 = rectangulos[rect]
+        eliminar_rectangulo(matriz,x1,y1,x2,y2)
+        
     # Caso base: si la matriz esta completamente vacia,
     # devolver el costo de la solucion
     if matriz_esta_vacia(matriz):
@@ -94,18 +102,16 @@ def backtrack(matriz, rectangulos, solution=[], solution_cost=0):
             optimal_solution= solution.copy()
             min_cost = solution_cost
         return solution_cost
-
-    # Inicializamos la respuesta como infinito
-    response = float('inf')
     
+    for rect in solution:
+        x1,y1,x2,y2 = rectangulos[rect]
+        marcar_rectangulo(matriz,x1,y1,x2,y2,rect+1)
+        
     for i, rect in enumerate(rectangulos):
         if i not in solution:
             # Agregamos el indice del rectangulo actual
             # a la solucion
             solution.append(i)
-            
-            # Eliminamos el rectangulo actual de la matriz
-            eliminar_rectangulo(matriz, rect[0], rect[1], rect[2], rect[3])
             
             # Llamamos recursivamente con la solucion 
             # actualizada
