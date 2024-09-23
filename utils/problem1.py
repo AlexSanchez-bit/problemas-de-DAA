@@ -13,6 +13,7 @@ def peso_rectangulo(x1, y1, x2, y2):
 
 def eliminar_rectangulo(matriz, x1, y1, x2, y2):
     # Elimina el rectángulo de la matriz (cambia de 1 a 0 en las posiciones ocupadas)
+    todos_ceros = True
     for i in range(x1, x2 + 1):
         for j in range(y1, y2 + 1):
             matriz[i][j] = 0
