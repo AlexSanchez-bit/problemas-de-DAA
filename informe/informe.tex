@@ -198,7 +198,7 @@ Para esto definamos algúnos puntos importantes.
 Sabiendo esto se nos ocurrio ordenar los rectángulos por área con un costo de $O(\log m)$ y elegir en cada momento el más grande, siempre que no haya sido borrado.
 
 
-Este método nos acercó a la solución con un costo computacional polinomial, pues solo sería el costo de ordenar los rectángulos($O(\log m)$) más el costo de borrarlos todos ($O(m)$ $\cdot$ $O(k)$ = $O(max (m, k)$), donde k es la cantidad de cuadrados que conforman el rectángulo, que en el caso peor es $O(n^2)$. Por tanto este algoritmo tendría un tiempo de $O(n^2)$
+Este método nos acercó a la solución con un costo computacional polinomial, pues solo sería el costo de ordenar los rectángulos($O(\log m)$) más el costo de borrarlos todos ($O(m)$ $\cdot$ $O(k)$ = $O(m \cdot k)$), donde k es la cantidad de cuadrados que conforman el rectángulo, que en el caso peor es $O(n^2)$. Por tanto este algoritmo tendría un tiempo de $O(\log m) + O(mn^2) = O(\max(\log m, mn^2) = O(mn^2)$
 
 Esta solución tiene un caso que nos falla, el cual abordaremos más adelante.
 	\subsubsection{Problemas con este enfoque}
