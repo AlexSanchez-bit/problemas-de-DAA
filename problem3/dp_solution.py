@@ -1,46 +1,40 @@
 
+from collections import defaultdict
+from math import comb
 def count_sets(students, k):
     from collections import defaultdict
-    from math import comb
 
-    # Contar estudiantes por grupo y examen
-    group_count = defaultdict(list)
-    exam_count = defaultdict(list)
-    combined_count = defaultdict(list)
+    # Paso 1: Identificar grupos y asignaturas únicas
+    groups = set()
+    exams = set()
 
-    for student_id, (group, exam) in enumerate(students):
-        group_count[group].append(student_id)
-        exam_count[exam].append(student_id)
-        combined_count[(group, exam)].append(student_id)
+    for student in students:
+        group, exam = student
+        groups.add(group)
+        exams.add(1 if exam=='R' else 2)
 
-    total_sets = 0
+    # Paso 2: Inicialización de la tabla de DP
+    dp = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
 
-    comb_aula=0
-    comb_exam=0
-    comb_comb=0
-    # Contar grupos de tamaño k por aula
-    for group, student_ids in group_count.items():
-        count = len(student_ids)
-        if count >= k:
-            tmp = comb(count, k)
-            total_sets += tmp
-            comb_aula+=tmp
+    # Estado inicial: Hay exactamente 1 forma de seleccionar 0 estudiantes
+    for group in groups:
+        for exam in exams:
+            dp[group][1 if exam=='R' else 2][0] = 1
 
-    # Contar grupos de tamaño k por examen
-    for exam, student_ids in exam_count.items():
-        count = len(student_ids)
-        if count >= k:
-            tmp = comb(count, k)
-            total_sets += tmp
-            comb_exam+=tmp
+    # Paso 3: Rellenar la tabla DP considerando cada estudiante
+    for student in students:
+        group, exam = student 
+        for count in range(1, k + 1):
+            # Actualizar DP considerando diferentes subproblemas
+            dp[group][1 if exam=='R' else 2][count] = dp[group][0 if exam=='R' else 0][count - 1]
+            dp[group][1 if exam=='R' else 2][count] += dp[group - 1][0 if exam=='R' else 0][count]
+            dp[group][1 if exam=='R' else 2][count] += dp[group][(1 if exam=='R' else 2) - 1][count]
+            dp[group][1 if exam=='R' else 2][count] -= dp[group - 1][ (1 if exam=='R' else 2)  - 1][count]
 
-    # Contar grupos de tamaño k por aula y examen
-    for (group, exam), student_ids in combined_count.items():
-        count = len(student_ids)
-        if count >= k:
-            tmp = comb(count, k)
-            total_sets -= tmp
-            comb_comb+=tmp
-    
+    # Paso 4: Obtener el resultado final sumando los casos de tamaño k
+    result = 0
+    for group in groups:
+        for exam in exams:
+            result += dp[group][1 if exam=='R' else 2][k]
 
-    return total_sets
+    return result

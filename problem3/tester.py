@@ -1,5 +1,5 @@
 from problem3.backtrack import backtrack_solution
-from problem3.dp_solution import count_sets
+from problem3.combinatory_solution import count_sets
 from utils.problem3 import generate_random_example
 from problem3.flux import Grafo
 import random
