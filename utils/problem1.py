@@ -53,11 +53,31 @@ def rect_a_contenido(matrix, rect1, rectangles):
     
     return black_tiles == covered_black_tiles  # Si todas las posiciones con 1 están contenidas, retornamos True
 
+def covered_area(matriz,x1,y1,x2,y2):
+    marks=0
+    for x in range(x1,x2+1):
+        for y in range(y1,y2+1):
+            if(matriz[x][y]!=0):
+                marks+=1
+    return marks
 
-def area_rect(x1,y1,x2,y2):
-    alto = abs(x2 - x1) + 1
-    ancho = abs(y2 - y1) + 1
-    return alto*ancho
+
+def area_rect(matriz,rectangulos,x1,y1,x2,y2):
+    marks=0#calculando la cantidad de espacios seleccionables solo por el rectangulo
+    for x in range(x1,x2+1):
+        for y in range(y1,y2+1):
+            if(matriz[x][y]!=0):
+                contained=False
+                for x_1,y_1,x_2,y_2 in rectangulos:
+                    if x1 == x_1 and x2 == x_2 and y1== y_1 and y2== y_2:
+                        continue
+                    if x_1<= x <= x_2 and y_1<=y<=y_2   :
+                        contained=True
+                        break
+                if not contained:
+                    marks+=1
+
+    return marks
 
 
 

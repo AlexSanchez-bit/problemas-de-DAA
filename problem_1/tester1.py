@@ -82,7 +82,7 @@ for _ in range(0,test_count):
     auxtime=time.time()
     rect_copy2= rectangulos.copy()
     auxtime=time.time()
-    min_greedy=solution(N, rect_copy2)
+    min_greedy=greedy_max_area(matriz, rect_copy2)
     algo_mean_time+=time.time() - auxtime
 
     if min_greedy == peso_minimo:
