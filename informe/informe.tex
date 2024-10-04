@@ -625,7 +625,7 @@ Precomputando las combinaciones mediante sumas nuestro espacio de combinaciones 
 
 Entonces, usando programación dinámica nuestra solución aumenta la complejidad de $O(n)$ a $O(n) + O(n*k) = O(n*k)$, pero también aumentamos el rango posible de soluciones que podemos tener.
 
-\subsection{Grupos muy grandes}
+\subsubsection{Grupos muy grandes}
 
 Nuestra solución con combinatoria también está limitada por la memoria que se pueda almacenar, ya que tenemos que guardar una matriz que en el peor de los casos es de tamano $n*n$, y si $n$ es muy grande éste da problemas de memoria.
 
@@ -640,6 +640,77 @@ $$ a = p * w + b $$
 con $w \geq 1$. Y como no conocemos $a$ es imposible definir un valor concreto para $w$, por lo que podemos definir infinitos valores de $w$ y esto nos generaría infinitos valores de $a$.
 
 Otro enfoque sería usar tratar los números como strings y realizar las operaciones de suma, resta, multiplicación y división \textit{"a mano"}, lo cual nos permitiría computar numeros muchísimos más grandes pero ejecutando esto en una máquina que trabaja con números de $32$ bits, computar estos valores ya no sería constante. 
+
+\subsection{Utilizando Programación Dinámica}
+
+La idea es sencilla, utilizamos memorisación para reducir la cantidad de cálculos redundantes. Creamos una matriz dp[grupo][asignatura][cantidad] que en cada posicion guardará todos los grupos posibles de tamanño cantidad que se pueden formar con los estudiantes del grupo [grupo] suspensos en la asignatura [asignatura]. Podemos notar la relación de recurrencia:
+
+
+
+
+
+
+\begin{equation}
+\begin{split}
+\text{dp}[g][e][c] = &\ \underbrace{\text{dp}[g][e][c-1]}_{\text{Agregar nuevo estudiante}} \\
+&+ \underbrace{\text{dp}[g-1][e][c]}_{\text{Seleccionar del grupo anterior}} \\
+&+ \underbrace{\text{dp}[g][e-1][c]}_{\text{Seleccionar del examen anterior}} \\
+&- \underbrace{\text{dp}[g-1][e-1][c]}_{\text{Evitar doble conteo}}
+\end{split}
+\end{equation}
+
+Luego de precomputar la matriz podemos calcular todas las columnas de la forma dp[*][*][k] y sumarlos para obtener todos los grupos de tamaño k. 
+
+El algoritmo quedaria:
+
+\begin{lstlisting}
+def count_sets(students, k):
+    from collections import defaultdict
+
+    # Paso 1: Identificar grupos y asignaturas únicas
+    groups = set()
+    exams = set()
+
+    for student in students:
+        group, exam = student
+        groups.add(group)
+        exams.add(1 if exam=='R' else 2)
+
+    # Paso 2: Inicialización de la tabla de DP
+    dp = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+
+    # Estado inicial: Hay exactamente 1 forma de seleccionar 0 estudiantes
+    for group in groups:
+        for exam in exams:
+            dp[group][1 if exam=='R' else 2][0] = 1
+
+    # Paso 3: Rellenar la tabla DP considerando cada estudiante
+    for student in students:
+        group, exam = student 
+        for count in range(1, k + 1):
+            # Actualizar DP considerando diferentes subproblemas
+            dp[group][1 if exam=='R' else 2][count] = dp[group][0 if exam=='R' else 0][count - 1]
+            dp[group][1 if exam=='R' else 2][count] += dp[group - 1][0 if exam=='R' else 0][count]
+            dp[group][1 if exam=='R' else 2][count] += dp[group][(1 if exam=='R' else 2) - 1][count]
+            dp[group][1 if exam=='R' else 2][count] -= dp[group - 1][ (1 if exam=='R' else 2)  - 1][count]
+
+    # Paso 4: Obtener el resultado final sumando los casos de tamaño k
+    result = 0
+    for group in groups:
+        for exam in exams:
+            result += dp[group][1 if exam=='R' else 2][k]
+
+    return result
+
+
+	\end{lstlisting}
+
+\subsubsection{Análisis de Correctitud}
+Por lo anteriormente expuesto el Algoritmo calcula todas las posiblkes combinaciones de grupos y asignaturas utilizando el principio de inclusión exclusión, evitando recalcular estados anteriores y evitando realizar las operaciones combinatorias que pueden llegar a ser costosas O(n) si tomamos como entrada el número utilizado para calcular. 
+
+
+\subsubsection{Análisis de complejidad}
+La precomputación de la matriz tendría costo O(n+k) donde n es la cantidad de estudiantes y k el tamaño de los subconjuntos que se quieren armar. Luego hacer la sumatoria de los subconjuntos de tamaño k tendría costo O(n). Por regla de la suma el costo total del algoritmo sería O(n+k) 
 
 \end{document}
     

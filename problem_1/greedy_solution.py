@@ -16,8 +16,6 @@ def greedy_max_area(matriz, rectangulos: list):
     # Ordenar rectángulos primero por área de mayor a menor y luego por coste de menor a mayor en caso de empate
     rectangulos=sorted(rectangulos,key=lambda rect:  (area_rect(matriz,rectangulos,*rect),covered_area(matriz,*rect)),reverse=True)
 
-    for x1,y1,x2,y2 in rectangulos:
-        print(f"rectangulo ({x1},{y1},{x2},{y2}) con area: {area_rect(matriz,rectangulos,x1,y1,x2,y2)}")
 
     costo = 0
     while not matriz_esta_vacia(matriz):
@@ -36,12 +34,7 @@ def greedy_max_area(matriz, rectangulos: list):
         
         # Eliminar el rectángulo de la matriz y añadirlo a la solución
         eliminar_rectangulo(matriz, x1, y1, x2, y2)
-        print('===========================')
         imprimir_matriz(matriz)
-        print(f"borrando rectangulo ({x1},{y1},{x2},{y2}) con area: {area_rect(matriz,rectangulos,x1,y1,x2,y2)} y peso {peso_rectangulo(x1,y1,x2,y2)}")
-        for r in rectangulos:
-            print(f"rectangulo ({r}) con area: {area_rect(matriz,rectangulos,*r)}")
-        print('===========================')
         response.append(biggest_rect)
 
 
