@@ -1,4 +1,4 @@
-
+from utils.problem1 import peso_rectangulo
 # n <-- number
 # rects <-- (x1, y1, x2, y2)[]
 def solution(n, rects):
@@ -9,7 +9,8 @@ def solution(n, rects):
     square[i] = [0]*n
 
   # sort rectangles by area
-  rects.sort(key=lambda x: (x[2]-x[0]+1)*(x[3]-x[1]+1))
+  rects.sort(key=lambda x: (peso_rectangulo(x[0],x[1],x[2],x[3])), reverse=True)
+  print(rects)
     
   # fill square with rectangles
   for k in range(m):

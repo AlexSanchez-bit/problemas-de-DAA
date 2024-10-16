@@ -267,9 +267,9 @@ Hay dos posibles formas de que esto ocurra:
 
 En cada paso el algoritmo anterior toma los rectángulos que tengan la mayor cantidad de espacios sin pintar en la matriz tal que ningún otro rectángulo lo cubra, si estos rectángulos estuvieran en $r_{2,i}$ y no estuvieran en $r_i$, entonces $r_i$ no cubriría toda la matriz pues estos rectángulos cumplen tener áreas tales que ningún otro los cubre. Por tanto para poder cubrir toda la matriz deben estar en $r_{2,i}$ y $r_i$.\\
 
-Ahora verifiquemos que los nodos seleccionados en el caso cuando la métrica de todos los rectángulos es 0. En estos casos el algoritmo anterior toma los de mayor área, tales que si hay 2 de igual cantidad de zonas sin pintar se coloca primero el de menor peso. sea p el mayor rectángulo del subconjunto de rectángulos que cumplen { r $\in$ $r_{2,i}$ | métrica(r)=0 }.\\
+Ahora verifiquemos que los nodos seleccionados en el caso cuando la métrica de todos los rectángulos es 0. En estos casos el algoritmo anterior toma los de mayor área, tales que si hay 2 de igual cantidad de zonas sin pintar se coloca primero el de menor peso. sea p el mayor rectángulo del subconjunto de rectángulos que cumplen $\{ r \in$ $r_{2,i} \mid métrica(r)=0 \}$.\\
 
-Supongamos que p $\notin$ $r_i$, dado que p es el de mayor tamaño. y menor costo, como la métrica de cada rectángulo es 0 entonces todas las zonas de dicho rectángulo están cubierta por otros, si p $\notin$ $r_i$, entonces para cubrir esa área están en $r_i$ los rectángulos que tienen intersecciones con él, por lo que para cubrir la misma área se necesitan más rectángulos que o bien están totalmente contenidos en p o tienen un área que sobrepasa p , por lo que llamando $o_i$ a estos rectángulos podemos afirmar:
+Supongamos que p $\notin$ $r_i$, dado que p es el de mayor tamaño, y menor costo, como la métrica de cada rectángulo es 0 entonces todas las zonas de dicho rectángulo están cubierta por otros, si p $\notin$ $r_i$, entonces para cubrir esa área están en $r_i$ los rectángulos que tienen intersecciones con él, por lo que para cubrir la misma área se necesitan más rectángulos que o bien están totalmente contenidos en p o tienen un área que sobrepasa p , por lo que llamando $o_i$ a estos rectángulos podemos afirmar:
 
 \begin{equation}
 \sum_{i=0}^{k} \text{peso}(o_i) \leq p
@@ -278,7 +278,7 @@ Supongamos que p $\notin$ $r_i$, dado que p es el de mayor tamaño. y menor cost
 Dando como resultado que en $r_{2,i}$ cubra más área que $r_i$ con un peso menor, lo que contradice que $r_i$ sea la solución óptima. Por tanto todo rectángulo que está en $r_{2,i} $ está en $r_i$.
 
 \subsection{Análisis de Complejidad}
-    La operación de la métrica de cada rectámgulo tiene costo O(n) pues hay que verificar las zonas comunes con el resto para saber si hay zonas que pertenecen únicamente al rectángulo que se está analizando.\\
+    La operación de la métrica de cada rectángulo tiene costo O(n) pues hay que verificar las zonas comunes con el resto para saber si hay zonas que pertenecen únicamente al rectángulo que se está analizando.\\
 
     El algoritmo de ordenación tiene costo O(nlogn) por lo que se hacen en el peor caso nlogn comparaciones, como cada comparación se hace en O(n), entonces el resultado de ordenar los rectángulos es O($n^2 * log(n)$)\\
 
@@ -292,7 +292,7 @@ El joven héroe Carlos, se enfrentaba a una prueba única: desmantelar los ciclo
 
 Cada vez que el héroe asesinaba cruelmente (no importa porque somos los buenos) a la criatura que cuidaba una un camino, este se rompía y desaparecía. Orión era fuerte, pero no tanto, debía optimizar bien a cuántos monstruos enfrentarse. Ayude al héroe encontrando la mínima cantidad de monstruos que debe matar para eliminar todas las montañas rusas de burla y depravación.
 	\subsubsection{Primer contacto}
-El problema puede ser visto comoo un Digrafo cíclico(si no hay ciclios no tiene sentido el ejercicio), donde las salas del laberinto serían los nodos, y los pasillos los arcos. Por lo que el problema se resume en encontrar la menor cantidad de aristas a quitar para hacer el grafo acíclico.  
+El problema puede ser visto como un Digrafo cíclico(si no hay ciclios no tiene sentido el ejercicio), donde las salas del laberinto serían los nodos, y los pasillos los arcos. Por lo que el problema se resume en encontrar la menor cantidad de aristas a quitar para hacer el grafo acíclico.  
 	\subsubsection{Algoritmos utilizados}
 	\begin{itemize}
 		\item GreedyFAS
@@ -300,7 +300,7 @@ El problema puede ser visto comoo un Digrafo cíclico(si no hay ciclios no tiene
 		\item KwikSort	
 		
 	\end{itemize}
-\subsection{Comprobación en timepo Polinomial}
+\subsection{Comprobación en tiempo polinomial}
 Si queremos comprobar una solución $<G, k>$ es decir si eliminando k arcos eliminamos los ciclos. Simplemente eliminamos esos k arcos y comprobamos que no queden ciclos en el grafo resultante. Usando algoritmos como Floyd Warshall O($V^3$), verificando aristas de retroceso con DFS(O(V(G)+E(G))), etc. Por lo que verificar una solución es posible en tiempo polinomial.
 
 \subsection{Reduciendo a Vertex Cover}
@@ -514,8 +514,11 @@ Por lo tanto, KwikSortFAS es una 3-aproximación.
 
 \section{El Profe}
 \subsection{Definición del problema}
+Jorge es profesor de programación. En sus ratos libres, le gusta divertirse con las estadísticas de sus pobres estudiantes reprobados. Los estudiantes están separados en $n$ grupos. Casualmente, este año, todos los estudiantes reprobaron alguno de los dos exámenes finales: $P$ (POO) y $R$ (Recursividad).
 
-Sean $m$ estudiantes repartidos en $m$ grupos, donde cada uno de ellos suspendió o la prueba $P$ (POO) o la prueba $R$ (Recursividad). Se nos pide calcular la cantidad de conjuntos de tamaño $k$ que se pueden formar con todos los estudantes tal que, en estos grupos, todos suspendieron la misma prueba o son de la misma aula.
+Esta tarde, Jorge decide entretenerse separando a los estudiantes suspensos en conjuntos de tamaño $k$ que cumplan lo siguiente: En un mismo conjunto, todos los estudiantes son del mismo grupo $i$ ($1 \leq i \leq n$) o suspendieron por el mismo examen $P$ o $R$.
+
+Conociendo el grupo y la prueba suspendida de cada estudiante, y el tamaño de los conjuntos, ayude a Jorge a saber cuántos conjuntos de estudiantes suspensos puede formar.
 
 \subsection{Entrada}
 
@@ -539,7 +542,7 @@ Nuestro primer enfoque como siempre es realizar el backtrack para recorrer el es
 
 Esta solución combinatoria la podemos realizar como sigue. Generamos todas los conjuntos de tamaño $k$ posibles y, por cada uno comprobamos que que la solucion sea válida. Si es válida la sumamos al total de conjuntos posibles y continuamos, sino la descartamos y seguimos. Esta solución pasa por todos los conjuntos posibles, tanto por los buenos como por los malos, por lo tanto si contamos todos los buenos al final tendremos la solución correcta.
 
-\subsection{Análisis de complejidad}
+\subsubsection{Análisis de complejidad}
 
 Generar todos los conjuntos de tamaño k posibles es $m \choose k$, con $m$ la cantidad total de estudiantes, y para comprobar que la solución sea correcta tenemos que recorrer los $k$ elementos chequeando que cumpla las restricciones. Por tanto la complejidad total sería:
 
@@ -588,7 +591,7 @@ $$
 
 Por tanto, computando esta expresión podemos calcular la solución de nuestro problema.
 
-\subsection{Análisis de complejidad}
+\subsubsection{Análisis de complejidad}
 
 Para el analisis de complejidad hay que tener varios factores a tener en cuenta. En principio computar la expresión matemática anterior es $O(n)$ con $n$ la cantidad de grupos a los que pertenecen los alumnos. Esta complejidad es $o(n)$ asumiendo que las expresiones combinatorias se calculen en $O(1)$ y las tres sumatorias se calculan en $O(n) + O(n) + O(n) = O(n)$.
 

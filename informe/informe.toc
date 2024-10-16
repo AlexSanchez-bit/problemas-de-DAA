@@ -1,23 +1,23 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {section}{\numberline {1}Grid}{2}{}%
-\contentsline {subsection}{\numberline {1.1}Definición del problema}{2}{}%
-\contentsline {subsubsection}{\numberline {1.1.1}Entrada}{2}{}%
-\contentsline {subsubsection}{\numberline {1.1.2}Salida}{2}{}%
-\contentsline {subsubsection}{\numberline {1.1.3}Técnicas de solución empleadas}{2}{}%
-\contentsline {subsection}{\numberline {1.2}Backtrack}{2}{}%
-\contentsline {subsubsection}{\numberline {1.2.1}Análisis de correctitud}{3}{}%
-\contentsline {subsubsection}{\numberline {1.2.2}Analisis de complejidad}{3}{}%
-\contentsline {subsubsection}{\numberline {1.2.3}Algoritmo}{3}{}%
-\contentsline {subsection}{\numberline {1.3}Primeras ideas}{4}{}%
-\contentsline {subsubsection}{\numberline {1.3.1}Problemas con este enfoque}{6}{}%
-\contentsline {subsection}{\numberline {1.4}Greedy}{8}{}%
-\contentsline {subsubsection}{\numberline {1.4.1}Analisis de correctitud}{8}{}%
-\contentsline {subsubsection}{\numberline {1.4.2}Análisis de complejidad}{9}{}%
+\contentsline {section}{\numberline {1}Grid}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Definición del problema}{3}{}%
+\contentsline {subsubsection}{\numberline {1.1.1}Entrada}{3}{}%
+\contentsline {subsubsection}{\numberline {1.1.2}Salida}{3}{}%
+\contentsline {subsubsection}{\numberline {1.1.3}Técnicas de solución empleadas}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Backtrack}{3}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}Análisis de correctitud}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.2}Analisis de complejidad}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.3}Algoritmo}{4}{}%
+\contentsline {subsection}{\numberline {1.3}Primeras ideas}{5}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}Algoritmo}{7}{}%
+\contentsline {subsubsection}{\numberline {1.3.2}Análisis de correctitud}{8}{}%
+\contentsline {subsubsection}{\numberline {1.3.3}Demostrando que devuelve siempre una solución Óptima}{8}{}%
+\contentsline {subsection}{\numberline {1.4}Análisis de Complejidad}{9}{}%
 \contentsline {section}{\numberline {2}El Laberinto}{10}{}%
 \contentsline {subsection}{\numberline {2.1}Definición del problema}{10}{}%
 \contentsline {subsubsection}{\numberline {2.1.1}Primer contacto}{10}{}%
 \contentsline {subsubsection}{\numberline {2.1.2}Algoritmos utilizados}{10}{}%
-\contentsline {subsection}{\numberline {2.2}Comprobación en timepo Polinomial}{11}{}%
+\contentsline {subsection}{\numberline {2.2}Comprobación en tiempo polinomial}{10}{}%
 \contentsline {subsection}{\numberline {2.3}Reduciendo a Vertex Cover}{11}{}%
 \contentsline {subsection}{\numberline {2.4}GreedyFAS}{12}{}%
 \contentsline {subsubsection}{\numberline {2.4.1}Proceso}{12}{}%
@@ -30,3 +30,15 @@
 \contentsline {subsubsection}{\numberline {2.6.2}Complejidad}{14}{}%
 \contentsline {section}{\numberline {3}El Profe}{15}{}%
 \contentsline {subsection}{\numberline {3.1}Definición del problema}{15}{}%
+\contentsline {subsection}{\numberline {3.2}Entrada}{15}{}%
+\contentsline {subsection}{\numberline {3.3}Salida}{15}{}%
+\contentsline {subsection}{\numberline {3.4}Técnicas de solución empleadas}{15}{}%
+\contentsline {subsection}{\numberline {3.5}Backtrack}{16}{}%
+\contentsline {subsubsection}{\numberline {3.5.1}Análisis de complejidad}{16}{}%
+\contentsline {subsection}{\numberline {3.6}Combinatoria}{16}{}%
+\contentsline {subsubsection}{\numberline {3.6.1}Análisis de complejidad}{18}{}%
+\contentsline {subsection}{\numberline {3.7}Combinatoria + Programación Dinámica}{18}{}%
+\contentsline {subsubsection}{\numberline {3.7.1}Grupos muy grandes}{19}{}%
+\contentsline {subsection}{\numberline {3.8}Utilizando Programación Dinámica}{19}{}%
+\contentsline {subsubsection}{\numberline {3.8.1}Análisis de Correctitud}{21}{}%
+\contentsline {subsubsection}{\numberline {3.8.2}Análisis de complejidad}{21}{}%
